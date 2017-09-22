@@ -1,9 +1,14 @@
 {
-    "name": "blang",
-    "displayName": "DCPU Support",
-    "description": "Support for DASM & DCPUB",
-    "version": "0.0.1",
+    "name": "dcpu-syntax-highlight",
+    "displayName": "DCPU-16 Language Support",
+    "description": "Support for DCPU Assembly 1.7 & DCPUB",
+    "version": "0.2.2",
     "publisher": "chamberlain",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Chamberlain91/dcpu-syntax-highlighting.git"
+    },
+    "icon": "icon.png",
     "engines": {
         "vscode": "^1.16.0"
     },
@@ -15,8 +20,7 @@
             {
                 "id": "dcpub",
                 "aliases": [
-                    "DCPU B Language",
-                    "dcpub"
+                    "DCPUB"
                 ],
                 "extensions": [
                     "b"

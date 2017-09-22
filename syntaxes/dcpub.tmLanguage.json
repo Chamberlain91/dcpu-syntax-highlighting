@@ -3,42 +3,129 @@
 	"name": "DCPUB",
 	"patterns": [
 		{
-			"match": "//.*$",
-			"name": "comment.line"
-		},
-		{
 			"match": "#.*$",
-			"name": "comment.line"
+			"name": "comment.line.number-sign"
 		},
 		{
-			"begin": "/\\*",
-			"end": "\\*/",
-			"name": "comment.block"
+			"include": "#asm"
+		},
+		{
+			"include": "#comments"
 		},
 		{
 			"include": "#keywords"
+		},
+		{
+			"include": "#operators"
 		},
 		{
 			"include": "#strings"
 		},
 		{
 			"include": "#numbers"
-		},
-		{
-			"include": "#type"
-		},
-		{
-			"include": "source.dasm",
-			"begin": "asm.*{",
-			"end": "}"
 		}
 	],
 	"repository": {
+		"comments": {
+			"patterns": [
+				{
+					"match": "//.*$",
+					"name": "comment.line"
+				},
+				{
+					"begin": "/\\*",
+					"end": "\\*/",
+					"name": "comment.block"
+				}
+			]
+		},
 		"keywords": {
 			"patterns": [
 				{
-					"name": "keyword",
-					"match": "\\b(function|local|static|asm|if|else|while|for|return)\\b"
+					"name": "keyword.control",
+					"match": "\\b(if|else|while|for|return)\\b"
+				},
+				{
+					"name": "storage.type",
+					"match": "\\b(local|static|struct|asm|function)\\b"
+				}
+			]
+		},
+		"operators": {
+			"patterns": [
+				{
+					"name": "keyword.operator.new",
+					"match": "(&|\\*)(?=\\w+)"
+				},
+				{
+					"match": "(\\w+)(\\.|:)(\\w+)",
+					"captures": {
+						"2": {
+							"name": "keyword.operator.new"
+						},
+						"3": {
+							"name": "storage.type"
+						}
+					}
+				},
+				{
+					"match": "\\[(.+?)\\]",
+					"captures": {
+						"0": {
+							"name": "keyword.operator"
+						},
+						"1": {
+							"patterns": [
+								{
+									"include": "$self"
+								}
+							]
+						}
+					}
+				}
+			]
+		},
+		"asm": {
+			"patterns": [
+				{
+					"begin": "asm",
+					"end": "(?:})",
+					"beginCaptures": {
+						"0": {
+							"patterns": [
+								{
+									"include": "#keywords"
+								}
+							]
+						}
+					},
+					"patterns": [
+						{
+							"begin": "\\(",
+							"end": "\\)",
+							"patterns": [
+								{
+									"name": "keyword.other",
+									"match": "\\b(A|B|C|X|Y|Z|I|J|PC|SP|IA|EX|PUSH|POP)\\b"
+								},
+								{
+									"include": "$self"
+								}
+							]
+						},
+						{
+							"begin": "{",
+							"end": "(?=})",
+							"patterns": [
+								{
+									"include": "#comments"
+								},
+								{
+									"include": "source.dasm"
+								}
+							]
+						}
+					]
 				}
 			]
 		},
@@ -51,22 +138,6 @@
 				{
 					"name": "constant.numeric",
 					"match": "\\b0x[0-9A-Fa-f]+\\b"
-				}
-			]
-		},
-		"type": {
-			"patterns": [
-				{
-					"name": "support.type",
-					"match": ":(.+?)\\b",
-					"captures": {
-						"0": {
-							"name": "keyword.control"
-						},
-						"1": {
-							"name": "entity"
-						}
-					}
 				}
 			]
 		},

@@ -3,26 +3,95 @@
 	"name": "DCPU Assembly 1.7",
 	"patterns": [
 		{
-			"match": ";.*$",
-			"name": "comment.line"
+			"include": "#comments"
 		},
 		{
-			"name": "keyword",
+			"name": "variable.language",
 			"match": "\\b(A|B|C|X|Y|Z|I|J|PC|SP|IA|EX|PUSH|POP)\\b"
 		},
 		{
-			"name": "markup.heading",
-			"match": ":\\w+\\b"
+			"name": "support.function",
+			"match": "\\b(SET|ADD|SUB|MUL|MLI|DIV|DVI|MOD|MDI|AND|BOR|XOR|SHR|ASR|SHL|IFB|IFC|IFE|IFN|IFG|IFA|IFL|IFU|ADX|SBX|STI|STD|JSR|INT|IAG|IAS|RFI|IAQ|HWN|HWQ|HWI|RET|HLT)\\b"
 		},
 		{
-			"name": "constant.numeric",
-			"match": "\\b\\d+\\b"
+			"include": "#numbers"
 		},
 		{
-			"name": "constant.numeric",
-			"match": "\\b0x[0-9A-Fa-f]+\\b"
+			"include": "#strings"
+		},
+		{
+			"match": "\\[(.+?)\\]",
+			"captures": {
+				"0": {
+					"name": "keyword.operator"
+				},
+				"1": {
+					"patterns": [
+						{
+							"include": "$self"
+						}
+					]
+				}
+			}
+		},
+		{
+			"include": "#labels"
 		}
 	],
-	"repository": {},
+	"repository": {
+		"comments": {
+			"patterns": [
+				{
+					"comment": "EOL Comments",
+					"name": "comment.line",
+					"match": ";.*$"
+				},
+				{
+					"comment": "Preprocessor",
+					"name": "comment.line",
+					"match": "#.*$"
+				}
+			]
+		},
+		"numbers": {
+			"patterns": [
+				{
+					"name": "constant.numeric",
+					"match": "\\b\\d+\\b"
+				},
+				{
+					"name": "constant.numeric",
+					"match": "\\b0x[0-9A-Fa-f]+\\b"
+				}
+			]
+		},
+		"labels": {
+			"patterns": [
+				{
+					"name": "support.type",
+					"match": "\\.?\\w+:"
+				},
+				{
+					"name": "support.type",
+					"match": ":\\w+"
+				},
+				{
+					"name": "markup.heading",
+					"match": "\\..+?\\b"
+				}
+			]
+		},
+		"strings": {
+			"name": "string.quoted.double.dcpub",
+			"begin": "\"",
+			"end": "\"",
+			"patterns": [
+				{
+					"name": "constant.character.escape.dcpub",
+					"match": "\\\\."
+				}
+			]
+		}
+	},
 	"scopeName": "source.dasm"
 }
