@@ -1,0 +1,86 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "DCPUB",
+	"patterns": [
+		{
+			"match": "//.*$",
+			"name": "comment.line"
+		},
+		{
+			"match": "#.*$",
+			"name": "comment.line"
+		},
+		{
+			"begin": "/\\*",
+			"end": "\\*/",
+			"name": "comment.block"
+		},
+		{
+			"include": "#keywords"
+		},
+		{
+			"include": "#strings"
+		},
+		{
+			"include": "#numbers"
+		},
+		{
+			"include": "#type"
+		},
+		{
+			"include": "source.dasm",
+			"begin": "asm.*{",
+			"end": "}"
+		}
+	],
+	"repository": {
+		"keywords": {
+			"patterns": [
+				{
+					"name": "keyword",
+					"match": "\\b(function|local|static|asm|if|else|while|for|return)\\b"
+				}
+			]
+		},
+		"numbers": {
+			"patterns": [
+				{
+					"name": "constant.numeric",
+					"match": "\\b\\d+\\b"
+				},
+				{
+					"name": "constant.numeric",
+					"match": "\\b0x[0-9A-Fa-f]+\\b"
+				}
+			]
+		},
+		"type": {
+			"patterns": [
+				{
+					"name": "support.type",
+					"match": ":(.+?)\\b",
+					"captures": {
+						"0": {
+							"name": "keyword.control"
+						},
+						"1": {
+							"name": "entity"
+						}
+					}
+				}
+			]
+		},
+		"strings": {
+			"name": "string.quoted.double.dcpub",
+			"begin": "\"",
+			"end": "\"",
+			"patterns": [
+				{
+					"name": "constant.character.escape.dcpub",
+					"match": "\\\\."
+				}
+			]
+		}
+	},
+	"scopeName": "source.blang"
+}

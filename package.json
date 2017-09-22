@@ -1,0 +1,51 @@
+{
+    "name": "blang",
+    "displayName": "DCPU Support",
+    "description": "Support for DASM & DCPUB",
+    "version": "0.0.1",
+    "publisher": "chamberlain",
+    "engines": {
+        "vscode": "^1.16.0"
+    },
+    "categories": [
+        "Languages"
+    ],
+    "contributes": {
+        "languages": [
+            {
+                "id": "dcpub",
+                "aliases": [
+                    "DCPU B Language",
+                    "dcpub"
+                ],
+                "extensions": [
+                    "b"
+                ],
+                "configuration": "./language-configuration.json"
+            },
+            {
+                "id": "dasm",
+                "aliases": [
+                    "DCPU Assembly",
+                    "dasm"
+                ],
+                "extensions": [
+                    "dasm"
+                ],
+                "configuration": "./dasm-language-configuration.json"
+            }
+        ],
+        "grammars": [
+            {
+                "language": "dcpub",
+                "scopeName": "source.blang",
+                "path": "./syntaxes/dcpub.tmLanguage.json"
+            },
+            {
+                "language": "dasm",
+                "scopeName": "source.dasm",
+                "path": "./syntaxes/dasm.tmLanguage.json"
+            }
+        ]
+    }
+}

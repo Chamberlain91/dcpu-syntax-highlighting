@@ -1,0 +1,28 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "DCPU Assembly 1.7",
+	"patterns": [
+		{
+			"match": ";.*$",
+			"name": "comment.line"
+		},
+		{
+			"name": "keyword",
+			"match": "\\b(A|B|C|X|Y|Z|I|J|PC|SP|IA|EX|PUSH|POP)\\b"
+		},
+		{
+			"name": "markup.heading",
+			"match": ":\\w+\\b"
+		},
+		{
+			"name": "constant.numeric",
+			"match": "\\b\\d+\\b"
+		},
+		{
+			"name": "constant.numeric",
+			"match": "\\b0x[0-9A-Fa-f]+\\b"
+		}
+	],
+	"repository": {},
+	"scopeName": "source.dasm"
+}
