@@ -6,6 +6,12 @@ Notable projects using DCPU-16:
 
 * [Techcompliant](https://github.com/techcompliant)
 
+## Screenshots
+ 
+![DCPUB Screenshot](./dcpub.screenshot.png)
+
+![DASM Screenshot](./dasm.screenshot.png)
+
 ## Want to contribute to this extension?
 
 Visit the project's [Github](https://github.com/Chamberlain91/dcpu-syntax-highlighting).

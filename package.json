@@ -2,7 +2,7 @@
     "name": "dcpu-syntax-highlight",
     "displayName": "DCPU-16 Language Support",
     "description": "Support for DCPU Assembly 1.7 & DCPUB",
-    "version": "0.2.2",
+    "version": "0.2.5",
     "publisher": "chamberlain",
     "repository": {
         "type": "git",
