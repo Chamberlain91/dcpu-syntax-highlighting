@@ -3,10 +3,6 @@
 	"name": "DCPUB",
 	"patterns": [
 		{
-			"match": "#.*$",
-			"name": "comment.line.number-sign"
-		},
-		{
 			"include": "#asm"
 		},
 		{
@@ -26,8 +22,52 @@
 		}
 	],
 	"repository": {
+		"preprocess": {
+			"patterns": [
+				{
+					"match": "define\\s(.+?)\\s(.*)$",
+					"captures": {
+						"1": {
+							"name": "support.function"
+						},
+						"2": {
+							"name": "support.type",
+							"patterns": [
+								{
+									"include": "#strings"
+								},
+								{
+									"include": "#numbers"
+								}
+							]
+						}
+					}
+				},
+				{
+					"match": "(\\w+)\\b(.+)$",
+					"captures": {
+						"2": {
+							"name": "support.function"
+						}
+					}
+				}
+			]
+		},
 		"comments": {
 			"patterns": [
+				{
+					"match": "#(.*)$",
+					"name": "meta.preprocessor",
+					"captures": {
+						"1": {
+							"patterns": [
+								{
+									"include": "#preprocess"
+								}
+							]
+						}
+					}
+				},
 				{
 					"match": "//.*$",
 					"name": "comment.line"
@@ -142,13 +182,28 @@
 			]
 		},
 		"strings": {
-			"name": "string.quoted.double.dcpub",
-			"begin": "\"",
-			"end": "\"",
 			"patterns": [
 				{
-					"name": "constant.character.escape.dcpub",
-					"match": "\\\\."
+					"name": "string.quoted.double.dcpub",
+					"begin": "\"",
+					"end": "\"",
+					"patterns": [
+						{
+							"name": "constant.character.escape.dcpub",
+							"match": "\\\\."
+						}
+					]
+				},
+				{
+					"name": "constant.character",
+					"begin": "'",
+					"end": "'",
+					"patterns": [
+						{
+							"name": "constant.character.escape.dcpub",
+							"match": "\\\\."
+						}
+					]
 				}
 			]
 		}
